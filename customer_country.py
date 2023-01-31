@@ -9,14 +9,3 @@ writer = csv.writer(customer_country_file, delimiter = ' ')
 for column in reader:
     writer.writerow((column[1],column[2],column[4]))
     
-
-
-
-
-
-
-
-
-
-#writer.writerow(column_name)
-#writer.writerow(data)
