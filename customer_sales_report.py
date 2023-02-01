@@ -1,12 +1,29 @@
 import csv
 
 sales_file = open('sales.csv','r')
-reader = csv.reader(sales_file)
+outfile = open('salesreport.csv','w')
 
+sales = csv.reader(sales_file, delimiter = ',')
 
+outfile.write("Customer ID, Total\n")
 
-sales_report_file = open('salesreport.csv','w')
-writer = csv.writer(sales_report_file, delimiter=' ')
-for column in reader:
-    writer.writerow((column[0],column[3]))
+next(sales)
+
+cust_total = 0
+custID = '250'
+
+for rec in sales:
+    if custID != rec[0]:
+        outfile.write(custID + ',' + format(cust_total,".2f") + '\n') 
+        cust_total = 0
+        custID = rec[0]
+
+    subtotal = float(rec[3])
+    tax = float(rec[4])
+    freight = float(rec[5])
+    total = subtotal + tax + freight
+    cust_total += total
+
+outfile.close()
+
 
